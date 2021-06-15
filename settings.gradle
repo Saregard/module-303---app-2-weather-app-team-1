@@ -1,2 +1,2 @@
-rootProject.name = "FirstActivity"
+rootProject.name = "Weather App"
 include ':app'
