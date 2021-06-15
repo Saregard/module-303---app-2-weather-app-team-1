@@ -1,6 +1,7 @@
 package com.example.firstactivity.activity
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        val cities =
             return if (v == editTextCity) {
                 val city = editTextCity?.text?.trim().toString()
 
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
                     imm?.hideSoftInputFromWindow(editTextCity?.windowToken, 0)
                     progressBar?.visibility = View.VISIBLE
                     getWeatherForCity(city)
+                    moveToNextActivity(city)
                 }
                 true
             } else
@@ -47,6 +48,11 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     }
 
     private fun getWeatherForCity(city: String) {
+    }
+    private fun moveToNextActivity(cityToLookWeatherInfo: String) {
+        val intent = Intent(this@MainActivity, SecondScreen::class.java)
+        intent.putExtra("cityName", cityToLookWeatherInfo)
+        startActivity(intent)
     }
 
 }

@@ -19,32 +19,10 @@
         android:textSize="50sp" />
 
     <ImageView
-        android:id="@+id/cloudy"
+        android:id="@+id/weathericon"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/clouds" />
-
-    <ImageView
-        android:id="@+id/rainy"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/littlerain" />
-
-    <ImageView
-        android:id="@+id/night"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/moon" />
-
-    <ImageView
-        android:id="@+id/sunny"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/sun" />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/Date"
