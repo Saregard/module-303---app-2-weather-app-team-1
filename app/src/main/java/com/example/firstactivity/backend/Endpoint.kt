@@ -10,5 +10,5 @@ interface Endpoint {
     fun getWeatherData(
         @Query("q") q: String,
         @Query("appid") appid: String
-    ): Call<List<City>>
+    ): Call<City>
 }
