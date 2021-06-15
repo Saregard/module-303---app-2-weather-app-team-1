@@ -1,10 +1,14 @@
 package com.example.firstactivity.backend
 
+import com.example.firstactivity.model.City
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface Endpoint {
-
-    @GET("data/2.5/weather?q={cityname}&appid={APIkey}")
-    fun getWeatherData(@Query("cityname") city: String, @Query("APIkey") API: String)
+    @GET("data/2.5/weather")
+    fun getWeatherData(
+        @Query("q") q: String,
+        @Query("appid") appid: String
+    ): Call<List<City>>
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FirstActivity</string>
+    <string name="weather_app">Weather App</string>
+    <string name="enter_city">Enter city</string>
+    <string name="you_need_to_enter_a_city">You need to enter a city</string>
+    <string name="the_data_for_that_city_does_not_exist">The data for that city does not exist</string>
 </resources>
