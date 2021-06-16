@@ -17,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class SecondScreen : AppCompatActivity() {
     private lateinit var binding: ActivitySecondScreenBinding
@@ -34,9 +35,9 @@ class SecondScreen : AppCompatActivity() {
     private fun setDateAndTime() {
         val currentDate = Date()
 
-        val timeToShow = SimpleDateFormat("hh:mm a").format(currentDate)
+        val timeToShow = SimpleDateFormat("h:mma").format(currentDate)
         binding.Time.text = timeToShow
-        val dateToShow = SimpleDateFormat("dd MMMM yyyy").format(currentDate)
+        val dateToShow = SimpleDateFormat("EEEE, d MMMM").format(currentDate)
         binding.Date.text = dateToShow
     }
 
@@ -48,21 +49,26 @@ class SecondScreen : AppCompatActivity() {
     private fun getCityWeather(city: String) {
         RetrofitClient
             .instance
-            .getWeatherData(city, "0a902a2e2de35215b6399eb1b6793162")
+            .getWeatherData(city, "0a902a2e2de35215b6399eb1b6793162", "metric")
             .enqueue(object : Callback<City>{
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.CityName.text.toString()
                     if (response.isSuccessful){
                         val weatherList = response.body()
                         weatherList.let {
+                            binding.CityName.text = it?.name
+                            binding.temperature.text = it?.main?.temp?.roundToInt().toString() + "°"
                             if (it?.weather?.first()?.description.toString().contains("cloud")) {
                                 binding.weathericon.setImageResource(R.drawable.clouds)
+                                binding.root.setBackgroundResource(R.drawable.cloudy_background)
                             }else if (it?.weather?.first()?.description.toString().contains("rain")){
                                 binding.weathericon.setImageResource(R.drawable.littlerain)
+                                binding.root.setBackgroundResource(R.drawable.rainy_background)
                             }else {
                                 binding.weathericon.setImageResource(R.drawable.sun)
+                                binding.root.setBackgroundResource(R.drawable.sunny_background)
                             }
+
                         }
                     }
                 }
