@@ -9,6 +9,7 @@ interface Endpoint {
     @GET("data/2.5/weather")
     fun getWeatherData(
         @Query("q") q: String,
-        @Query("appid") appid: String
-    ): Call<List<City>>
+        @Query("appid") appid: String,
+        @Query("units") units: String
+    ): Call<City>
 }
