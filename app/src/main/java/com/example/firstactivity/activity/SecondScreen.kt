@@ -2,6 +2,7 @@ package com.example.firstactivity.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.firstactivity.R
 import com.example.firstactivity.backend.RetrofitClient
 import com.example.firstactivity.databinding.ActivitySecondScreenBinding
@@ -40,6 +41,10 @@ class SecondScreen : AppCompatActivity() {
             .getWeatherData(city, "0a902a2e2de35215b6399eb1b6793162")
             .enqueue(object : Callback<City>{
                 override fun onResponse(call: Call<City>, response: Response<City>) {
+                    binding.progressBar.visibility = View.VISIBLE
+                    if (){
+
+                    }
                     // Get the right weather icon
 
                     //Display weather in the city + icon
