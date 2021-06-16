@@ -1,6 +1,5 @@
 package com.example.firstactivity.model
 
-
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -11,4 +10,4 @@ data class Coord(
     val lat: Double? = 0.0,
     @SerializedName("lon")
     val lon: Double? = 0.0
-): Parcelable
+) : Parcelable

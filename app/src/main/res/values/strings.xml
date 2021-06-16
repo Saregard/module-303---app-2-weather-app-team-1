@@ -5,4 +5,5 @@
     <string name="you_need_to_enter_a_city">You need to enter a city</string>
     <string name="the_data_for_that_city_does_not_exist">The data for that city does not exist</string>
     <string name="unable_to_get_city">Unable to get city</string>
+    <string name="invalid_city">Invalid city</string>
 </resources>
