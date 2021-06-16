@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.firstactivity.R
 import com.example.firstactivity.backend.RetrofitClient
 import com.example.firstactivity.model.City
+import kotlinx.android.synthetic.main.activity_second_screen.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,16 +71,19 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             .enqueue(object : Callback<City> {
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     progressBar?.visibility = View.INVISIBLE
+                    val array = arrayListOf("gothenburg", "panama", "oslo", "london")
                     if (response.isSuccessful) {
                         val weatherInfo = response.body()
 
                         if (weatherInfo != null) {
                             moveToNextActivity(weatherInfo)
                         } else {
-                            Toast.makeText(this@MainActivity, getString(R.string.invalid_city), Toast.LENGTH_LONG).show()
+                            editTextCity?.error = getString(R.string.invalid_city)
                         }
-                    } else {
-                        Toast.makeText(this@MainActivity, getString(R.string.invalid_city), Toast.LENGTH_LONG).show()
+                    }else if (){
+                        editTextCity?.error = getString(R.string.the_data_for_that_city_does_not_exist)
+                    }else {
+                        editTextCity?.error = getString(R.string.invalid_city)
                     }
                 }
 

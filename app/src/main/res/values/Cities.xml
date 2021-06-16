@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Gothenburg">Gothenburg</string>
+    <string name="Panama">Panama</string>
+    <string name="London">London</string>
+    <string name="Oslo">Oslo</string>
+    <string-array name="valid_cities">
+        <item>@string/Gothenburg</item>
+        <item>@string/London</item>
+        <item>@string/Oslo</item>
+        <item>@string/Panama</item>
+    </string-array>
+</resources>
