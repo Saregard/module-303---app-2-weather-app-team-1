@@ -1,8 +1,11 @@
 package com.example.firstactivity.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Weather(
     @SerializedName("description")
     val description: String? = "",
@@ -12,4 +15,4 @@ data class Weather(
     val id: Int? = 0,
     @SerializedName("main")
     val main: String? = ""
-)
+): Parcelable

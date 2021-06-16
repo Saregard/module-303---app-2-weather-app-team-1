@@ -1,18 +1,28 @@
 package com.example.firstactivity.activity
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.example.firstactivity.R
+import com.example.firstactivity.backend.RetrofitClient
+import com.example.firstactivity.model.City
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
+
 
     private var editTextCity: EditText? = null
     private var progressBar: ProgressBar? = null
@@ -39,20 +49,50 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
                 } else {
                     imm?.hideSoftInputFromWindow(editTextCity?.windowToken, 0)
                     progressBar?.visibility = View.VISIBLE
-                    getWeatherForCity(city)
-                    moveToNextActivity(city)
+                    getCityWeather(city)
                 }
                 true
             } else
                 false
     }
 
-    private fun getWeatherForCity(city: String) {
-    }
-    private fun moveToNextActivity(cityToLookWeatherInfo: String) {
+    private fun moveToNextActivity(cityToLookWeatherInfo: City) {
         val intent = Intent(this@MainActivity, SecondScreen::class.java)
         intent.putExtra("cityName", cityToLookWeatherInfo)
         startActivity(intent)
     }
+    private fun getCityWeather(city: String){
+        RetrofitClient
+            .instance
+            .getWeatherData(city, "0a902a2e2de35215b6399eb1b6793162", "metric")
+            .enqueue(object : Callback<City>{
+                override fun onResponse(call: Call<City>, response: Response<City>) {
+                    progressBar?.visibility = View.INVISIBLE
+                    if(response.isSuccessful){
+                        val weatherInfo = response.body()
+                        if (weatherInfo != null) {
+                            moveToNextActivity(weatherInfo)
+
+                        }else {
+                            Toast.makeText(this@MainActivity, "Invalid City", Toast.LENGTH_LONG).show()
+
+                        }
+                    }else {
+                        Toast.makeText(this@MainActivity, "Invalid City", Toast.LENGTH_LONG).show()
+
+                    }
+                }
+
+                override fun onFailure(call: Call<City>, t: Throwable) {
+                    Log.e(ContentValues.TAG, "Error getting city: ${t.localizedMessage}")
+                    progressBar?.visibility = View.INVISIBLE
+                    Toast.makeText(this@MainActivity,
+                        R.string.unable_to_get_city,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+    }
+
 
 }

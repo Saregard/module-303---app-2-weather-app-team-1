@@ -1,8 +1,11 @@
 package com.example.firstactivity.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class City(
     @SerializedName("base")
     val base: String? = "",
@@ -30,4 +33,4 @@ data class City(
     val weather: List<Weather>? = listOf(),
     @SerializedName("wind")
     val wind: Wind? = Wind()
-)
+): Parcelable
