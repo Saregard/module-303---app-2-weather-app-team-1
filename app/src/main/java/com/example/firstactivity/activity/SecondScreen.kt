@@ -1,10 +1,13 @@
 package com.example.firstactivity.activity
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.example.firstactivity.R
 import com.example.firstactivity.backend.RetrofitClient
 import com.example.firstactivity.databinding.ActivitySecondScreenBinding
@@ -22,9 +25,8 @@ class SecondScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        showCityName()
         setDateAndTime()
-
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val city = intent.getStringExtra("cityName")
         getCityWeather(city.toString())
@@ -34,11 +36,13 @@ class SecondScreen : AppCompatActivity() {
 
         val timeToShow = SimpleDateFormat("hh:mm a").format(currentDate)
         binding.Time.text = timeToShow
-
         val dateToShow = SimpleDateFormat("dd MMMM yyyy").format(currentDate)
         binding.Date.text = dateToShow
+    }
 
-        val city = binding.CityName.text.toString()
+    private fun showCityName() {
+        val currentCity = City()
+        binding.CityName.text = currentCity.toString()
     }
 
     private fun getCityWeather(city: String) {
@@ -48,23 +52,28 @@ class SecondScreen : AppCompatActivity() {
             .enqueue(object : Callback<City>{
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     binding.progressBar.visibility = View.VISIBLE
+                    binding.CityName.text.toString()
                     if (response.isSuccessful){
                         val weatherList = response.body()
                         weatherList.let {
-                            if (it?.weather.) {
+                            if (it?.weather?.first()?.description.toString().contains("cloud")) {
+                                binding.weathericon.setImageResource(R.drawable.clouds)
+                            }else if (it?.weather?.first()?.description.toString().contains("rain")){
+                                binding.weathericon.setImageResource(R.drawable.littlerain)
+                            }else {
+                                binding.weathericon.setImageResource(R.drawable.sun)
                             }
-
                         }
                     }
-                    // Get the right weather icon
-
-                    //Display weather in the city + icon
                 }
 
                 override fun onFailure(call: Call<City>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e(TAG, "Error getting city: ${t.localizedMessage}")
+                    Toast.makeText(this@SecondScreen,
+                        R.string.unable_to_get_city,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
-        // Get current weather in the city
     }
 }
