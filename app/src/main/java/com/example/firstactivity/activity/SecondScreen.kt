@@ -1,8 +1,10 @@
 package com.example.firstactivity.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.firstactivity.R
 import com.example.firstactivity.backend.RetrofitClient
 import com.example.firstactivity.databinding.ActivitySecondScreenBinding
@@ -15,6 +17,7 @@ import java.util.*
 
 class SecondScreen : AppCompatActivity() {
     private lateinit var binding: ActivitySecondScreenBinding
+    private var imm: InputMethodManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondScreenBinding.inflate(layoutInflater)
@@ -22,6 +25,7 @@ class SecondScreen : AppCompatActivity() {
 
         setDateAndTime()
 
+        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val city = intent.getStringExtra("cityName")
         getCityWeather(city.toString())
     }
@@ -33,6 +37,8 @@ class SecondScreen : AppCompatActivity() {
 
         val dateToShow = SimpleDateFormat("dd MMMM yyyy").format(currentDate)
         binding.Date.text = dateToShow
+
+        val city = binding.CityName.text.toString()
     }
 
     private fun getCityWeather(city: String) {
@@ -45,7 +51,7 @@ class SecondScreen : AppCompatActivity() {
                     if (response.isSuccessful){
                         val weatherList = response.body()
                         weatherList.let {
-                            if (it.weather.des) {
+                            if (it?.weather.) {
                             }
 
                         }
