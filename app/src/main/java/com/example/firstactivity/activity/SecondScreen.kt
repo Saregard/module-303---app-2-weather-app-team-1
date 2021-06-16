@@ -42,8 +42,13 @@ class SecondScreen : AppCompatActivity() {
             .enqueue(object : Callback<City>{
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     binding.progressBar.visibility = View.VISIBLE
-                    if (){
+                    if (response.isSuccessful){
+                        val weatherList = response.body()
+                        weatherList.let {
+                            if (it.weather.des) {
+                            }
 
+                        }
                     }
                     // Get the right weather icon
 
