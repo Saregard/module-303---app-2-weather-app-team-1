@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             false
     }
 
-    private fun moveToNextActivity(cityToLookWeatherInfo: City) {
+    private fun moveToNextActivity(cityToLookWeatherInfo: City?) {
         val intent = Intent(this@MainActivity, SecondScreen::class.java)
         intent.putExtra("cityName", cityToLookWeatherInfo)
         startActivity(intent)
@@ -71,19 +71,12 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             .enqueue(object : Callback<City> {
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     progressBar?.visibility = View.INVISIBLE
-                    val array = arrayListOf("gothenburg", "panama", "oslo", "london")
                     if (response.isSuccessful) {
                         val weatherInfo = response.body()
+                        moveToNextActivity(weatherInfo)
 
-                        if (weatherInfo != null) {
-                            moveToNextActivity(weatherInfo)
-                        } else {
-                            editTextCity?.error = getString(R.string.invalid_city)
-                        }
-                    }else if (){
-                        editTextCity?.error = getString(R.string.the_data_for_that_city_does_not_exist)
                     }else {
-                        editTextCity?.error = getString(R.string.invalid_city)
+                        editTextCity?.error = getString(R.string.that_is_not_a_city)
                     }
                 }
 
@@ -99,3 +92,21 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             })
     }
 }
+// Limit the amount of cities shown
+
+// Show error message if its the wrong city
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
