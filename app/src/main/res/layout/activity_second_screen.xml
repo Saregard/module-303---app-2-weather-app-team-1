@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,76 +8,86 @@
     tools:context=".activity.MainActivity">
 
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:fontFamily="sans-serif-light"
-        android:shadowColor="@color/shadowcolor"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/Time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:fontFamily="sans-serif-light"
-        android:shadowColor="@color/shadowcolor"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="3"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp" />
-
-    <TextView
-        android:id="@+id/CityName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:fontFamily="sans-serif-light"
-        android:shadowColor="@color/shadowcolor"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        android:textAlignment="center"
         android:textSize="20sp"
-        android:textColor="@color/white" />
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/weathericon"
+        android:id="@+id/weatherIcon"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:shadowColor="@color/black" />
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:id="@+id/temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif-light"
-        android:shadowColor="@color/shadowcolor"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="3"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="80sp" />
+        android:textSize="80sp"
+        android:textStyle="bold"
+        tools:text= "29°"
+        tools:textColor= "@color/black"/>
 
-
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <include
+            android:id="@+id/layoutWind"
+            layout="@layout/layout_symbols"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <include
+            android:id="@+id/layoutSunrise"
+            layout="@layout/layout_symbols"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <include
+            android:id="@+id/layoutSunset"
+            layout="@layout/layout_symbols"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,8 +1,10 @@
 package com.example.firstactivity.model
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Sys(
     @SerializedName("country")
     val country: String? = "",
@@ -14,4 +16,4 @@ data class Sys(
     val sunset: Int? = 0,
     @SerializedName("type")
     val type: Int? = 0
-)
+) : Parcelable
