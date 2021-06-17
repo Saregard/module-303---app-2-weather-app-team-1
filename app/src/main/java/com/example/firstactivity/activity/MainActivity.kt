@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
                 binding.editTextEnterCity.error = getString(R.string.you_need_to_enter_a_city)
             } else {
                 imm?.hideSoftInputFromWindow(binding.editTextEnterCity.windowToken, 0)
+
                 binding.progressBar.visibility = View.VISIBLE
                 getCityWeather(city)
             }
@@ -66,13 +67,16 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     private fun getCityWeather(city: String) {
         RetrofitClient
             .instance
+
             .getWeatherData(city, "0a902a2e2de35215b6399eb1b6793162", "metric")
+
             .enqueue(object : Callback<City> {
                 override fun onResponse(call: Call<City>, response: Response<City>) {
                     binding.progressBar.visibility = View.INVISIBLE
                     if (response.isSuccessful) {
                         val weatherInfo = response.body()
                         moveToNextActivity(weatherInfo)
+                        
                     } else {
                         binding.editTextEnterCity.error = getString(R.string.that_is_not_a_city)
                     }
@@ -80,7 +84,9 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
                 override fun onFailure(call: Call<City>, t: Throwable) {
                     Log.e(ContentValues.TAG, "Error getting city: ${t.localizedMessage}")
+
                     binding.progressBar.visibility = View.INVISIBLE
+
                     Toast.makeText(
                         this@MainActivity,
                         R.string.unable_to_get_city,
