@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.firstactivity.R
 import com.example.firstactivity.databinding.ActivitySecondScreenBinding
 import com.example.firstactivity.model.City
+import com.example.firstactivity.model.Sys
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.math.roundToInt
@@ -25,6 +26,7 @@ class SecondScreen : AppCompatActivity() {
 
         if (city != null && isCityValid(city)) {
             displayData(city)
+            sunriseAndSunset(city.sys)
         } else {
             displayErrorScreen()
         }
@@ -53,9 +55,24 @@ class SecondScreen : AppCompatActivity() {
         binding.date.text = dateToShow
     }
 
+    private fun sunriseAndSunset(sun: Sys?) {
+        sun?.let {
+            val timeFormat = SimpleDateFormat("HH:mm")
+            val sunriseTime = it.sunrise ?: 0
+            val sunriseTimeFormated = Date(sunriseTime.toLong() * 1000L)
+            binding.layoutSunrise.layoutSymbolIcon.setImageResource(R.drawable.icons_sunrise)
+            binding.layoutSunrise.layoutSymbolText.text = timeFormat.format(sunriseTimeFormated)
+
+            val sunsetTime = it.sunset ?: 0
+            val sunsetTimeFormated = Date(sunsetTime.toLong() * 1000L)
+            binding.layoutSunset.layoutSymbolIcon.setImageResource(R.drawable.icons_sunset)
+            binding.layoutSunset.layoutSymbolText.text = timeFormat.format(sunsetTimeFormated)
+        }
+    }
+
     private fun displayData(city: City) {
-        binding.windIcon.setImageResource(R.drawable.wind)
-        binding.windSpeed.text = city.wind?.speed.toString() + "m/s"
+        binding.layoutWind.layoutSymbolIcon.setImageResource(R.drawable.wind)
+        binding.layoutWind.layoutSymbolText.text = city.wind?.speed.toString() + "m/s"
         binding.cityName.text = city.name
         binding.temperature.text = city.main?.temp?.roundToInt().toString() + "°"
 

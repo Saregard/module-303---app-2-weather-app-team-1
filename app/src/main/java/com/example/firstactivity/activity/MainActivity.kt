@@ -8,15 +8,12 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firstactivity.R
 import com.example.firstactivity.backend.RetrofitClient
 import com.example.firstactivity.databinding.ActivityMainBinding
-import com.example.firstactivity.databinding.ActivitySecondScreenBinding
 import com.example.firstactivity.model.City
 import kotlinx.android.synthetic.main.activity_second_screen.*
 import retrofit2.Call
@@ -76,7 +73,6 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
                     if (response.isSuccessful) {
                         val weatherInfo = response.body()
                         moveToNextActivity(weatherInfo)
-
                     } else {
                         binding.editTextEnterCity.error = getString(R.string.that_is_not_a_city)
                     }
