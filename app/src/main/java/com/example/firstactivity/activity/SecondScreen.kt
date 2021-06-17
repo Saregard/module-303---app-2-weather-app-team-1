@@ -30,43 +30,43 @@ class SecondScreen : AppCompatActivity() {
         }
     }
 
-    private fun isCityValid(city: City): Boolean{
-        val listOfValidCities = listOf("panama","gothenburg", "oslo", "london")
+    private fun isCityValid(city: City): Boolean {
+        val listOfValidCities = listOf("panama", "gothenburg", "oslo", "london")
 
         return city.name != null && city.name.lowercase() in listOfValidCities
     }
 
     private fun displayErrorScreen() {
-        binding.weathericon.setImageResource(R.drawable.sad_cloud)
-        binding.Date.visibility = View.INVISIBLE
-        binding.Time.visibility = View.INVISIBLE
+        binding.weatherIcon.setImageResource(R.drawable.sad_cloud)
+        binding.date.visibility = View.INVISIBLE
+        binding.time.visibility = View.INVISIBLE
         binding.temperature.visibility = View.INVISIBLE
-        binding.CityName.visibility = View.INVISIBLE
+        binding.cityName.visibility = View.INVISIBLE
     }
 
     private fun setDateAndTime() {
         val currentDate = Date()
 
         val timeToShow = SimpleDateFormat("h:mma").format(currentDate)
-        binding.Time.text = timeToShow
+        binding.time.text = timeToShow
         val dateToShow = SimpleDateFormat("EEEE, d MMMM").format(currentDate)
-        binding.Date.text = dateToShow
+        binding.date.text = dateToShow
     }
 
     private fun displayData(city: City) {
-        binding.windicon.setImageResource(R.drawable.wind)
-        binding.windspeed.text = city.wind?.speed.toString() + "m/s"
-        binding.CityName.text = city.name
+        binding.windIcon.setImageResource(R.drawable.wind)
+        binding.windSpeed.text = city.wind?.speed.toString() + "m/s"
+        binding.cityName.text = city.name
         binding.temperature.text = city.main?.temp?.roundToInt().toString() + "°"
 
         if (city.weather?.first()?.description.toString().contains("cloud")) {
-            binding.weathericon.setImageResource(R.drawable.clouds)
+            binding.weatherIcon.setImageResource(R.drawable.clouds)
             binding.root.setBackgroundResource(R.drawable.cloudy_background)
         } else if (city.weather?.first()?.description.toString().contains("rain")) {
-            binding.weathericon.setImageResource(R.drawable.littlerain)
+            binding.weatherIcon.setImageResource(R.drawable.littlerain)
             binding.root.setBackgroundResource(R.drawable.rainy_background)
         } else {
-            binding.weathericon.setImageResource(R.drawable.sun)
+            binding.weatherIcon.setImageResource(R.drawable.sun)
             binding.root.setBackgroundResource(R.drawable.sunny_background)
         }
     }
